@@ -156,7 +156,7 @@ def descending_coin(coin):
     elif coin == 5:
         return 1
 
-
+from itertools import count
 def count_coins(change):
     """Return the number of ways to make change using coins of value of 1, 5, 10, 25.
     >>> count_coins(15)
@@ -174,7 +174,41 @@ def count_coins(change):
     >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    """First way, using function ascending_coin"""
+    return count_coins_with_ascending_coin(change, 1)
+    """Second way, using function descending_coin
+    return count_coins_with_descending_coin(change, 25)"""
+
+
+def count_coins_with_ascending_coin(change, limit):
+    """Reference:
+    http://composingprograms.com/pages/17-recursive-functions.html#example-partitions"""
+    if change == 0:
+        return 1
+    elif change < 0:
+        return 0
+    elif limit == None:
+        return 0
+    else:
+        with_limit = count_coins_with_ascending_coin(change - limit, limit)
+        without_limit = count_coins_with_ascending_coin(change, ascending_coin(limit))
+        return with_limit + without_limit
+
+
+def count_coins_with_descending_coin(change, limit):
+    """Reference:  
+    http://composingprograms.com/pages/17-recursive-functions.html#example-partitions"""
+    if change == 0:
+        return 1
+    elif change < 0:
+        return 0
+    elif limit == None:
+        return 0
+    else:
+        with_limit = count_coins_with_descending_coin(change - limit, limit)
+        without_limit = count_coins_with_descending_coin(change, descending_coin(limit))
+        return with_limit + without_limit
+
 
 
 def print_move(origin, destination):
