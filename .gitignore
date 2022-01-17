@@ -1,4 +1,4 @@
-projects/*/.ok*
-projects/*/__pycache__/
-lab/*/.ok*
-lab/*/__pycache__/
+/projects/*/.ok*
+/projects/*/__pycache__/
+/lab/*/.ok*
+/lab/*/__pycache__/
