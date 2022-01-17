@@ -156,6 +156,7 @@ def descending_coin(coin):
     elif coin == 5:
         return 1
 
+
 from itertools import count
 def count_coins(change):
     """Return the number of ways to make change using coins of value of 1, 5, 10, 25.
@@ -210,7 +211,6 @@ def count_coins_with_descending_coin(change, limit):
         return with_limit + without_limit
 
 
-
 def print_move(origin, destination):
     """Print instructions to move a disk."""
     print("Move the top disk from rod", origin, "to rod", destination)
@@ -244,7 +244,18 @@ def move_stack(n, start, end):
     Move the top disk from rod 1 to rod 3
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-    "*** YOUR CODE HERE ***"
+    if start + end == 3:
+        by = 3
+    elif start + end == 4:
+        by = 2
+    else:
+        by = 1
+    if n == 1:
+        print_move(start, end)
+    else:
+        move_stack(n-1, start, by)
+        move_stack(1, start, end)
+        move_stack(n-1, by, end)
 
 
 from operator import sub, mul
