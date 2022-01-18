@@ -88,8 +88,7 @@ def coords(fn, seq, lower, upper):
     >>> coords(fn, seq, 1, 9)
     [[-2, 4], [1, 1], [3, 9]]
     """
-    "*** YOUR CODE HERE ***"
-    return ______
+    return [[seq[i], fn(seq[i])] for i in range(len(seq)) if lower <= fn(seq[i]) <= upper]
 
 
 def riffle(deck):
@@ -101,5 +100,4 @@ def riffle(deck):
     >>> riffle(range(20))
     [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
     """
-    "*** YOUR CODE HERE ***"
-    return _______
+    return [deck[i // 2] if i % 2 == 0 else deck[(i + len(deck)) // 2] for i in range(len(deck))]
