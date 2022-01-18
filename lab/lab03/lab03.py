@@ -157,8 +157,7 @@ def protected_secret(password, secret, num_attempts):
     the PASSWORD given to protected_secret. Otherwise it prints "INCORRECT PASSWORD". After NUM_ATTEMPTS
     incorrect passwords are entered, the secret is locked and the function should print "SECRET LOCKED".
 
-    >>> 
-    
+    >>> my_secret = protected_secret("correcthorsebatterystaple", "I love UCB", 2)
     >>> my_secret = my_secret("hax0r_1") # 2 attempts left
     INCORRECT PASSWORD
     >>> my_secret = my_secret("correcthorsebatterystaple")
