@@ -8,7 +8,6 @@ triple = lambda x: 3 * x
 
 increment = lambda x: x + 1
 
-
 HW_SOURCE_FILE = __file__
 
 
@@ -70,7 +69,6 @@ def accumulate(merger, base, n, term):
         base = merger(base, term(n))
         n -= 1
     return base
-        
 
 
 def summation_using_accumulate(n, term):
@@ -125,7 +123,7 @@ def one(f):
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
-    return lambda x: f(f(x)) 
+    return lambda x: f(f(x))
 
 
 three = successor(two)

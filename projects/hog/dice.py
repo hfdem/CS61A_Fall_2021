@@ -23,6 +23,7 @@ def make_fair_dice(sides):
 
     def dice():
         return randint(1, sides)
+
     return dice
 
 
@@ -57,4 +58,5 @@ def make_test_dice(*outcomes):
         nonlocal index
         index = (index + 1) % len(outcomes)
         return outcomes[index]
+
     return dice

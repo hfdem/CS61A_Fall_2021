@@ -119,8 +119,8 @@ class ExclusionChecker(NodeVisitor):
 
     def visit_Call(self, node):
         if 'Recursion' in self._disallow and \
-           type(node.func) is Name and \
-           node.func.id in self._func_nest:
+                type(node.func) is Name and \
+                node.func.id in self._func_nest:
             self._report(node, "should not be recursive")
         self.generic_visit(node)
 

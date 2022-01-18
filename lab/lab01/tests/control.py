@@ -1,11 +1,11 @@
 test = {
-  'name': 'Control',
-  'points': 0,
-  'suites': [
-    {
-      'cases': [
+    'name': 'Control',
+    'points': 0,
+    'suites': [
         {
-          'code': r"""
+            'cases': [
+                {
+                    'code': r"""
           >>> def xk(c, d):
           ...     if c == 4:
           ...         return 6
@@ -22,12 +22,12 @@ test = {
           >>> xk(0, 0)
           25
           """,
-          'hidden': False,
-          'locked': False,
-          'multiline': False
-        },
-        {
-          'code': r"""
+                    'hidden': False,
+                    'locked': False,
+                    'multiline': False
+                },
+                {
+                    'code': r"""
           >>> def how_big(x):
           ...     if x > 10:
           ...         print('huge')
@@ -46,18 +46,18 @@ test = {
           >>> how_big(-1)
           nothing
           """,
-          'hidden': False,
-          'locked': False,
-          'multiline': False
-        }
-      ],
-      'scored': False,
-      'type': 'wwpp'
-    },
-    {
-      'cases': [
+                    'hidden': False,
+                    'locked': False,
+                    'multiline': False
+                }
+            ],
+            'scored': False,
+            'type': 'wwpp'
+        },
         {
-          'code': r"""
+            'cases': [
+                {
+                    'code': r"""
           >>> n = 3
           >>> while n >= 0:  # If this loops forever, just type Infinite Loop
           ...     n -= 1
@@ -67,12 +67,12 @@ test = {
           0
           -1
           """,
-          'hidden': False,
-          'locked': False,
-          'multiline': True
-        },
-        {
-          'code': r"""
+                    'hidden': False,
+                    'locked': False,
+                    'multiline': True
+                },
+                {
+                    'code': r"""
           >>> positive = 28
           >>> while positive: # If this loops forever, just type Infinite Loop
           ...    print("positive?")
@@ -80,12 +80,12 @@ test = {
           db3915202fb52c6613af5ef28bfc5773
           # locked
           """,
-          'hidden': False,
-          'locked': True,
-          'multiline': True
-        },
-        {
-          'code': r"""
+                    'hidden': False,
+                    'locked': True,
+                    'multiline': True
+                },
+                {
+                    'code': r"""
           >>> positive = -9
           >>> negative = -12
           >>> while negative: # If this loops forever, just type Infinite Loop
@@ -98,13 +98,13 @@ test = {
           3c05905385c5bd4c0ab5fe2640db2eed
           # locked
           """,
-          'hidden': False,
-          'locked': True,
-          'multiline': True
+                    'hidden': False,
+                    'locked': True,
+                    'multiline': True
+                }
+            ],
+            'scored': False,
+            'type': 'wwpp'
         }
-      ],
-      'scored': False,
-      'type': 'wwpp'
-    }
-  ]
+    ]
 }

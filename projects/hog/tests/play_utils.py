@@ -2,6 +2,7 @@ import random
 
 SUMMARY = "Start scores = ({s0}, {s1}).\nPlayer {w} rolls {nr} dice and gets outcomes {rv}.\nEnd scores = ({e0}, {e1})"
 
+
 def trace_play(play, strategy0, strategy1, score0, score1, dice, goal, say):
     """Wraps the user's play function and
         (1) ensures that strategy0 and strategy1 are called exactly once per turn
@@ -50,6 +51,7 @@ def trace_play(play, strategy0, strategy1, score0, score1, dice, goal, say):
     )
     return s0, s1, game_trace
 
+
 def safe(commentary):
     def new_commentary(*args, **kwargs):
         try:
@@ -58,10 +60,13 @@ def safe(commentary):
             print("Error in commentary function")
             result = commentary
         return safe(result)
+
     return new_commentary
 
+
 def describe_game(hog, test_number, score0, score1, goal):
-    strat_seed0, strat_seed1, dice_seed = run_with_seed(test_number, lambda: [random.randrange(2**32) for _ in range(3)])
+    strat_seed0, strat_seed1, dice_seed = run_with_seed(test_number,
+                                                        lambda: [random.randrange(2 ** 32) for _ in range(3)])
     strategy0 = random_strat(strat_seed0)
     strategy1 = random_strat(strat_seed1)
     dice = get_dice(dice_seed)
@@ -91,17 +96,21 @@ def describe_game(hog, test_number, score0, score1, goal):
     summary.append("Game Over")
     return summary
 
+
 def random_strat(seed):
     """
     Makes a random strategy from based on the given seed
     """
+
     def random_strat(score, opponent_score):
         # Save the state of the random generator, so strategy calls don't
         # impact dice rolls.
         # using this because python's hash function is NOT CONSISTENT ACROSS OSs!!!!!!!!!!!!11!!22!!2!
         conditional_seed = score * 314159265358979 + opponent_score * 27182818284590452353602874713527 + seed * 161803398874989484820
         return run_with_seed(conditional_seed % (2 ** 32), lambda: random.randrange(0, 11))
+
     return random_strat
+
 
 def run_with_seed(seed, fn):
     state = random.getstate()
@@ -110,9 +119,11 @@ def run_with_seed(seed, fn):
     random.setstate(state)
     return result
 
+
 def get_dice(seed):
     def dice():
         nonlocal seed
-        seed, value = run_with_seed(seed, lambda: (random.randrange(0, 2**32), random.randrange(1, 7)))
+        seed, value = run_with_seed(seed, lambda: (random.randrange(0, 2 ** 32), random.randrange(1, 7)))
         return value
+
     return dice

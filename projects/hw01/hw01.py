@@ -11,7 +11,7 @@ def a_plus_abs_b(a, b):
     """
     if b < 0:
         f = sub
-            
+
     else:
         f = add
     return f(a, b)
@@ -69,15 +69,16 @@ def largest_factor(n):
     gratter_factor = 0
     while n > 1:
         k = smallest_prime_factor(n)
-        n = n // k 
-        gratter_factor = max (gratter_factor, n)
-    return gratter_factor   
+        n = n // k
+        gratter_factor = max(gratter_factor, n)
+    return gratter_factor
+
 
 def smallest_prime_factor(n):
     k = 2
     while n % k != 0:
         k = k + 1
-    return k 
+    return k
 
 
 def limited(x, z, limit):
@@ -123,6 +124,7 @@ def change_short(x, y, limit):
     """
     return limited(x, abs(y - x), limit)
 
+
 def invert_and_change_syntax_check():
     """Checks that definitions of invert_short and change_short are just return statements.
 
@@ -154,18 +156,18 @@ def hailstone(n):
     "*** YOUR CODE HERE ***"
     i = 1
     print(n)
-    while n>1:
+    while n > 1:
         if n % 2 == 0:
             n = n // 2
         else:
-            n = int (n * 3 + 1)
+            n = int(n * 3 + 1)
         print(n)
         i = i + 1
     return i
 
 
 "*** YOUR CODE HERE ***"
-quine = print(repr()
+quine = print()
 
 
 def quine_test():

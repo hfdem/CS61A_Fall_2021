@@ -25,7 +25,7 @@ def num_eights(pos):
     if pos == 0:
         return 0
     else:
-        return num_eights(pos//10) + last_is_eight(pos)
+        return num_eights(pos // 10) + last_is_eight(pos)
 
 
 def last_is_eight(n):
@@ -74,16 +74,16 @@ def pingpong(n):
     if n == 1:
         return 1
     else:
-        return pingpong(n-1) + pingpong_one(n-1)
+        return pingpong(n - 1) + pingpong_one(n - 1)
 
 
 def pingpong_one(n):
     if n == 1:
         return 1
     elif n % 8 == 0 or num_eights(n):
-        return -pingpong_one(n-1)
+        return -pingpong_one(n - 1)
     else:
-        return pingpong_one(n-1)
+        return pingpong_one(n - 1)
 
 
 def missing_digits(n):
@@ -158,6 +158,8 @@ def descending_coin(coin):
 
 
 from itertools import count
+
+
 def count_coins(change):
     """Return the number of ways to make change using coins of value of 1, 5, 10, 25.
     >>> count_coins(15)
@@ -253,9 +255,9 @@ def move_stack(n, start, end):
     if n == 1:
         print_move(start, end)
     else:
-        move_stack(n-1, start, by)
+        move_stack(n - 1, start, by)
         move_stack(1, start, end)
-        move_stack(n-1, by, end)
+        move_stack(n - 1, by, end)
 
 
 from operator import sub, mul
@@ -277,4 +279,4 @@ def make_anonymous_factorial():
     s and f -> fact, lambda f, n: 1 if n == 1 else mul(n, f(f, sub(n, 1)))
     v and n -> variables, like 5
     """
-    return (lambda s:lambda v:s(s,v))(lambda f, n: 1 if n == 1 else mul(n, f(f, sub(n, 1))))
+    return (lambda s: lambda v: s(s, v))(lambda f, n: 1 if n == 1 else mul(n, f(f, sub(n, 1))))

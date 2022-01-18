@@ -33,8 +33,6 @@ def unique_digits(n):
     return k
 
 
-
-
 def has_digit(n, k):
     """Returns whether K is a digit in N.
     >>> has_digit(10, 1)
@@ -49,8 +47,6 @@ def has_digit(n, k):
             return True
         n, i = n // 10, i + 1
     return False
-
-        
 
 
 def ordered_digits(x):
@@ -125,18 +121,22 @@ def make_repeater(func, n):
     >>> make_repeater(square, 0)(5) # Yes, it makes sense to apply the function zero times!
     5
     """
+
     def repeater(k):
         i = 0
         while i < n:
             i, k = i + 1, func(k)
         return k
+
     return repeater
 
 
 def composer(func1, func2):
     """Return a function f, such that f(x) = func1(func2(x))."""
+
     def f(x):
         return func1(func2(x))
+
     return f
 
 
@@ -169,6 +169,7 @@ def protected_secret(password, secret, num_attempts):
     >>> my_secret = my_secret("correcthorsebatterystaple")
     SECRET LOCKED
     """
+
     def get_secret(password_attempt):
         if num_attempts:
             if password == password_attempt:
@@ -179,4 +180,5 @@ def protected_secret(password, secret, num_attempts):
         else:
             print("SECRET LOCKED")
         return protected_secret(password, secret, num_attempts)
+
     return get_secret

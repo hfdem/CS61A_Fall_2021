@@ -36,6 +36,7 @@ def trace(fn):
     def compute_something(x, y):
         # function body
     """
+
     @functools.wraps(fn)
     def wrapped(*args, **kwds):
         global _PREFIX
@@ -53,6 +54,7 @@ def trace(fn):
         # Here, print out the return value.
         log('{0}({1}) -> {2}'.format(fn.__name__, ', '.join(reprs), result))
         return result
+
     return wrapped
 
 
@@ -85,6 +87,7 @@ def interact(msg=None):
     def handler(signum, frame):
         print()
         exit(0)
+
     signal.signal(signal.SIGINT, handler)
 
     if not msg:

@@ -22,7 +22,7 @@ def summation(n, term):
     if n == 1:
         return term(1)
     else:
-        return summation(n-1, term) + term(n)
+        return summation(n - 1, term) + term(n)
 
 
 def pascal(row, column):
@@ -42,7 +42,7 @@ def pascal(row, column):
     elif row == 0:
         return 0
     else:
-        return pascal(row-1, column-1) + pascal(row-1, column)
+        return pascal(row - 1, column - 1) + pascal(row - 1, column)
 
 
 def paths(m, n):
@@ -62,7 +62,7 @@ def paths(m, n):
         # hit the top or rightmost edge
         return 1
     else:
-        return paths(m-1, n) + paths(m, n-1)
+        return paths(m - 1, n) + paths(m, n - 1)
 
 
 def couple(s, t):

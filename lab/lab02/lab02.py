@@ -17,10 +17,13 @@ def lambda_curry2(func):
     >>> lambda_curry2(mod)(123)(10)
     3
     """
+
     def curry1(a):
         def curry2(b):
             return func(a, b)
+
         return curry2
+
     return curry1
 
 
@@ -62,6 +65,7 @@ def count_cond(condition):
     >>> count_primes(20)   # 2, 3, 5, 7, 11, 13, 17, 19
     8
     """
+
     def cond(n):
         i, count = 1, 0
         while i <= n:
@@ -69,6 +73,7 @@ def count_cond(condition):
                 count += 1
             i += 1
         return count
+
     return cond
 
 
@@ -104,10 +109,12 @@ def composite_identity(f, g):
     >>> b1(4)                            # (4 + 1)^2 != 4^2 + 1
     False
     """
+
     def identity(x):
         if f(g(x)) == g(f(x)):
             return True
         return False
+
     return identity
 
 
@@ -137,6 +144,7 @@ def cycle(f1, f2, f3):
     >>> do_two_cycles(1)
     19
     """
+
     # def cycling(n):
     #     def calculate(x):
     #         count = 0
@@ -164,5 +172,7 @@ def cycle(f1, f2, f3):
                 elif n == 1:
                     return f1(x)
             return x
+
         return calculate
+
     return cycle_times

@@ -1,11 +1,11 @@
 test = {
-  'name': 'Higher Order Functions',
-  'points': 0,
-  'suites': [
-    {
-      'cases': [
+    'name': 'Higher Order Functions',
+    'points': 0,
+    'suites': [
         {
-          'code': r"""
+            'cases': [
+                {
+                    'code': r"""
           >>> def even(f):
           ...     def odd(x):
           ...         if x < 0:
@@ -21,12 +21,12 @@ test = {
           >>> stewart(-4)
           4
           """,
-          'hidden': False,
-          'locked': False,
-          'multiline': False
-        },
-        {
-          'code': r"""
+                    'hidden': False,
+                    'locked': False,
+                    'multiline': False
+                },
+                {
+                    'code': r"""
           >>> def cake():
           ...    print('beets')
           ...    def pie():
@@ -58,13 +58,13 @@ test = {
           >>> snake(10, 20)
           30
           """,
-          'hidden': False,
-          'locked': False,
-          'multiline': False
+                    'hidden': False,
+                    'locked': False,
+                    'multiline': False
+                }
+            ],
+            'scored': False,
+            'type': 'wwpp'
         }
-      ],
-      'scored': False,
-      'type': 'wwpp'
-    }
-  ]
+    ]
 }

@@ -22,7 +22,6 @@ def falling(n, k):
         return result
 
 
-
 def sum_digits(y):
     """Sum all the digits of y.
 
@@ -38,11 +37,12 @@ def sum_digits(y):
     """
     "*** YOUR CODE HERE ***"
     l = num_length(y)
-    sum = 0 
+    sum = 0
     while l > 0:
         sum = sum + y // pow(10, l - 1) - y // pow(10, l) * 10
         l = l - 1
     return sum
+
 
 def num_length(y):
     if y == 0:
@@ -71,7 +71,7 @@ def double_eights(n):
     """
     "*** YOUR CODE HERE ***"
     l = num_length(n)
-    numOfEights = 0 
+    numOfEights = 0
     while l > 0:
         if n // pow(10, l - 1) - n // pow(10, l) * 10 == 8:
             if n // pow(10, l - 2) - n // pow(10, l - 1) * 10 == 8:
@@ -79,14 +79,15 @@ def double_eights(n):
         l = l - 1
     return False
 
+
 def switch_True_and_False(x):
     if bool(x) == True:
         return False
     else:
         return True
 
+
 positive = 28
-while positive: # If this loops forever, just type Infinite Loop
+while positive:  # If this loops forever, just type Infinite Loop
     print("positive?")
     positive -= 3
-    

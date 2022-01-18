@@ -5,6 +5,7 @@ from ucb import main, trace, interact
 
 GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 
+
 ######################
 # Phase 1: Simulator #
 ######################
@@ -42,6 +43,7 @@ def picky_piggy(score):
     return digits_num(score, 142857) if score > 0 else 7
     # END PROBLEM 2
 
+
 def digits_num(digits, num):
     '''Retrieving the digits of a number.
     >>> digits_num(2, 1234567890)
@@ -53,7 +55,8 @@ def digits_num(digits, num):
     assert num > 0 and digits > 0, 'Digits and number must greater than 0'
     lenth = num_lenth(num)
     digits = digits % lenth if digits % lenth else lenth
-    return int((num % pow(10,lenth + 1 - digits) - num % pow(10,lenth - digits)) / pow(10,lenth - digits))
+    return int((num % pow(10, lenth + 1 - digits) - num % pow(10, lenth - digits)) / pow(10, lenth - digits))
+
 
 def num_lenth(num):
     k = 1
@@ -151,9 +154,11 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     # END PROBLEM 6
     return score0, score1
 
+
 def play_player(strategy, player_score, opponent_score, dice, goal):
     player_score = player_score + take_turn(strategy(player_score, opponent_score), opponent_score, dice, goal)
     return player_score + hog_pile(player_score, opponent_score)
+
 
 #######################
 # Phase 2: Commentary #
@@ -179,6 +184,7 @@ def announce_lead_changes(last_leader=None):
     >>> f5 = f4(15, 13)
     Player 0 takes the lead by 2
     """
+
     def say(score0, score1):
         if score0 > score1:
             leader = 0
@@ -189,6 +195,7 @@ def announce_lead_changes(last_leader=None):
         if leader != None and leader != last_leader:
             print('Player', leader, 'takes the lead by', abs(score0 - score1))
         return announce_lead_changes(leader)
+
     return say
 
 
@@ -205,8 +212,10 @@ def both(f, g):
     Player 0 now has 10 and Player 1 now has 17
     Player 1 takes the lead by 7
     """
+
     def say(score0, score1):
         return both(f(score0, score1), g(score0, score1))
+
     return say
 
 
@@ -229,6 +238,7 @@ def announce_highest(who, last_score=0, running_high=0):
     assert who == 0 or who == 1, 'The who argument should indicate a player.'
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+
     def say(score0, score1):
         gain, last, high = 0, 0, 0
         if who == 0:
@@ -243,6 +253,7 @@ def announce_highest(who, last_score=0, running_high=0):
             return announce_highest(who, last, high)
         else:
             return announce_highest(who, last, running_high)
+
     return say
     # END PROBLEM 7
 
@@ -265,8 +276,10 @@ def always_roll(n):
     >>> strategy(99, 99)
     5
     """
+
     def strategy(score, opponent_score):
         return n
+
     return strategy
 
 
@@ -284,11 +297,13 @@ def make_averaged(original_function, trials_count=1000):
     """
     # BEGIN PROBLEM 8
     "*** YOUR CODE HERE ***"
+
     def strategy(*arg):
         count, sum = trials_count, 0
         while count > 0:
             sum, count = sum + original_function(*arg), count - 1
         return sum / trials_count
+
     return strategy
     # END PROBLEM 8
 
@@ -362,7 +377,8 @@ def hog_pile_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     Otherwise, it returns NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 0 if picky_piggy_strategy(score, opponent_score, cutoff, num_rolls) == 0 or hog_pile(picky_piggy(opponent_score) + score, opponent_score) >= cutoff else num_rolls
+    return 0 if picky_piggy_strategy(score, opponent_score, cutoff, num_rolls) == 0 or hog_pile(
+        picky_piggy(opponent_score) + score, opponent_score) >= cutoff else num_rolls
     # END PROBLEM 11
 
 
@@ -390,15 +406,16 @@ def final_strategy(score, opponent_score):
         return hog_pile_strategy(score, opponent_score, cutoff=GOAL_SCORE - score, num_rolls=1)
     elif score > GOAL_SCORE - 7:
         return hog_pile_strategy(score, opponent_score, cutoff=GOAL_SCORE - score, num_rolls=2)
-    elif score > GOAL_SCORE - 10 or score - opponent_score > 30:  
+    elif score > GOAL_SCORE - 10 or score - opponent_score > 30:
         return hog_pile_strategy(score, opponent_score, cutoff=GOAL_SCORE - score, num_rolls=3)
-    elif score > GOAL_SCORE - 13 or score - opponent_score > 25:  
+    elif score > GOAL_SCORE - 13 or score - opponent_score > 25:
         return hog_pile_strategy(score, opponent_score, cutoff=GOAL_SCORE - score, num_rolls=4)
-    elif score > GOAL_SCORE - 16 or score - opponent_score > 20:  
+    elif score > GOAL_SCORE - 16 or score - opponent_score > 20:
         return hog_pile_strategy(score, opponent_score, cutoff=GOAL_SCORE - score, num_rolls=5)
     else:
         return hog_pile_strategy(score, opponent_score, cutoff=20, num_rolls=6)
     # END PROBLEM 12
+
 
 ##########################
 # Command Line Interface #
