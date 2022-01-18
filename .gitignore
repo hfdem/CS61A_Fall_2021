@@ -1,5 +1,7 @@
 /projects/*/.ok*
 /projects/*/__pycache__/
+/projects/*/test/__pycache__/
 /lab/*/.ok*
 /lab/*/__pycache__/
+/lab/*/test/__pycache__/
 /.idea/
