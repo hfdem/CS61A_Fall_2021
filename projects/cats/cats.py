@@ -146,7 +146,13 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     'testing'
     """
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    diff = [diff_function(typed_word, valid_words[i], limit) for i in range(len(valid_words))]
+    if any(typed_word == valid_words[i] for i in range(len(valid_words))):
+        return typed_word
+    elif all(diff[i] > limit for i in range(len(diff))):
+        return typed_word
+    else:
+        return valid_words[diff.index(min(diff[i] for i in range(len(diff))))]
     # END PROBLEM 5
 
 
