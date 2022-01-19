@@ -52,8 +52,13 @@ def about(topic):
     'Nice pup.'
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
+
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    def any_topic(ps):
+        return any(topic[i] in split(lower(remove_punctuation(ps))) for i in range(len(topic)))
+
+    return any_topic
+
     # END PROBLEM 2
 
 
@@ -277,7 +282,7 @@ def fastest_words(match):
     [4, 1, 6]
     """
     player_indices = range(len(get_times(match)))  # contains an *index* for each player
-    word_indices = range(len(get_words(match)))    # contains an *index* for each word
+    word_indices = range(len(get_words(match)))  # contains an *index* for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
     # END PROBLEM 10
@@ -332,6 +337,7 @@ def match_string(match):
 
 
 enable_multiplayer = False  # Change to True when you're ready to race.
+
 
 ##########################
 # Command Line Interface #
