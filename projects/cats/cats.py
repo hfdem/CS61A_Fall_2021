@@ -136,15 +136,22 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     >>> autocorrect("tosting", ["testing", "asking", "fasting"], first_diff, 10)
     'testing'
     """
-    min_diff, min_diff_index = limit + 1, 0
+    """
+     min_diff, min_diff_index = limit + 1, 0
     for i in range(len(valid_words)):
         if typed_word == valid_words[i]:
-            return typed_word
-        else:
-            diff = diff_function(typed_word, valid_words[i], limit)
-        if min_diff > diff:
-            min_diff, min_diff_index = diff, i
+        return typed_word
+    else:
+        diff = diff_function(typed_word, valid_words[i], limit)
+    if min_diff > diff:
+        min_diff, min_diff_index = diff, i
     return typed_word if min_diff > limit else valid_words[min_diff_index]
+"""
+    if typed_word in valid_words:
+        return typed_word
+    else:
+        d = {i: diff_function(typed_word, valid_words[i], limit) for i in range(len(valid_words))}
+        return typed_word if min(list(d.values())) > limit else valid_words[min(d, key=d.get)]
 
 
 def feline_flips(start, goal, limit):
@@ -293,8 +300,11 @@ def time_per_word(words, times_per_player):
     def times(x):
         return [times_per_player[x][i + 1] - times_per_player[x][i] for i in range(len(times_per_player[x]) - 1)]
 
-    time0, time1 = times(0), times(1)
-    return [words, [time0, time1]]
+    num_players = len(times_per_player)
+    time_mix = [[]] * num_players
+    for i in range(num_players):
+        time_mix[i] = time_mix[i] + times(i)
+    return match(words, time_mix)
 
 
 def fastest_words(match):
@@ -314,8 +324,28 @@ def fastest_words(match):
     """
     player_indices = range(len(get_times(match)))  # contains an *index* for each player
     word_indices = range(len(get_words(match)))  # contains an *index* for each word
-    # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"  # END PROBLEM 10
+    k = [[]] * len(get_times(match))
+    index = min_column_index(get_times(match), word_indices, player_indices)
+    for i in word_indices:
+        k[index[i]] = k[index[i]] + [get_words(match)[i]]
+    return k
+
+
+def min_column_index(l, range_row, range_column):
+    """
+    >>> min_column_index([[5, 1, 3], [4, 1, 6]], range(3), range(2))
+    [1, 0, 0]
+    """
+    k = []
+    for row in range_row:
+        min_column, index = l[0][row], 0
+        for column in range_column:
+            value = l[column][row]
+            if value < min_column:
+                min_column, index = value, column
+        k = k + [index]
+    return k
+
 
 
 def match(words, times):
