@@ -221,10 +221,17 @@ def minimum_mewtations(start, goal, limit):
 def final_diff(start, goal, limit):
     """A diff function that takes in a string START, a string GOAL, and a number LIMIT.
     If you implement this function, it will be used."""
-    assert False, 'Remove this line to use your final_diff function.'
+    if start[0] != goal[0]:
+        return minimum_mewtations(start, goal, limit)
+    elif len(start) > 1 and len(goal) > 1 and start[1] != goal[1]:
+        return minimum_mewtations(start, goal, limit)
+    elif len(start) > 2 and len(goal) > 2 and start[2] != goal[2]:
+        return minimum_mewtations(start, goal, limit)
+    else:
+        return feline_flips(start, goal, limit)
 
 
-FINAL_DIFF_LIMIT = 6  # REPLACE THIS WITH YOUR LIMIT
+FINAL_DIFF_LIMIT = 5.5  # REPLACE THIS WITH YOUR LIMIT
 
 
 ###########
@@ -255,9 +262,15 @@ def report_progress(sofar, prompt, user_id, upload):
     ID: 3 Progress: 0.2
     0.2
     """
-    # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"  # END PROBLEM 8
-
+    score = 0
+    for i in range(len(sofar)):
+        if sofar[i] == prompt[i]:
+            score += 1
+        else:
+            break
+    progress = score / len(prompt)
+    upload({'id': user_id, 'progress': progress})
+    return progress
 
 def time_per_word(words, times_per_player):
     """Given timing data, return a match data abstraction, which contains a
