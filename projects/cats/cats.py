@@ -272,6 +272,7 @@ def report_progress(sofar, prompt, user_id, upload):
     upload({'id': user_id, 'progress': progress})
     return progress
 
+
 def time_per_word(words, times_per_player):
     """Given timing data, return a match data abstraction, which contains a
     list of words and the amount of time each player took to type each word.
@@ -289,8 +290,11 @@ def time_per_word(words, times_per_player):
     >>> get_times(match)
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
-    # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"  # END PROBLEM 9
+    def times(x):
+        return [times_per_player[x][i + 1] - times_per_player[x][i] for i in range(len(times_per_player[x]) - 1)]
+
+    time0, time1 = times(0), times(1)
+    return [words, [time0, time1]]
 
 
 def fastest_words(match):
