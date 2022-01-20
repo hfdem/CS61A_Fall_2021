@@ -29,13 +29,11 @@ def choose(paragraphs, select, k):
     >>> choose(ps, s, 2)
     ''
     """
-    # BEGIN PROBLEM 1
     chosen = [paragraphs[i] for i in range(len(paragraphs)) if select(paragraphs[i])]
     if k < len(chosen):
         return chosen[k]
     else:
         return ''
-    # END PROBLEM 1
 
 
 def about(topic):
@@ -53,13 +51,10 @@ def about(topic):
     """
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
 
-    # BEGIN PROBLEM 2
     def any_topic(ps):
         return any(topic[i] in split(lower(remove_punctuation(ps))) for i in range(len(topic)))
 
     return any_topic
-
-    # END PROBLEM 2
 
 
 def accuracy(typed, reference):
@@ -87,7 +82,6 @@ def accuracy(typed, reference):
     """
     typed_words = split(typed)
     reference_words = split(reference)
-    # BEGIN PROBLEM 3
     score = 0
     if typed_words == [] and reference_words == []:
         return 100.0
@@ -102,7 +96,6 @@ def accuracy(typed, reference):
             if typed_words[i] == reference_words[i]:
                 score += 1
     return score / len(typed_words) * 100
-    # END PROBLEM 3
 
 
 def wpm(typed, elapsed):
@@ -118,9 +111,7 @@ def wpm(typed, elapsed):
     2.0
     """
     assert elapsed > 0, 'Elapsed time must be positive'
-    # BEGIN PROBLEM 4
     return len(typed) / 5 * 60 / elapsed
-    # END PROBLEM 4
 
 
 ###########
@@ -145,15 +136,15 @@ def autocorrect(typed_word, valid_words, diff_function, limit):
     >>> autocorrect("tosting", ["testing", "asking", "fasting"], first_diff, 10)
     'testing'
     """
-    # BEGIN PROBLEM 5
-    diff = [diff_function(typed_word, valid_words[i], limit) for i in range(len(valid_words))]
-    if any(typed_word == valid_words[i] for i in range(len(valid_words))):
-        return typed_word
-    elif all(diff[i] > limit for i in range(len(diff))):
-        return typed_word
-    else:
-        return valid_words[diff.index(min(diff[i] for i in range(len(diff))))]
-    # END PROBLEM 5
+    min_diff, min_diff_index = limit + 1, 0
+    for i in range(len(valid_words)):
+        if typed_word == valid_words[i]:
+            return typed_word
+        else:
+            diff = diff_function(typed_word, valid_words[i], limit)
+        if min_diff > diff:
+            min_diff, min_diff_index = diff, i
+    return typed_word if min_diff > limit else valid_words[min_diff_index]
 
 
 def feline_flips(start, goal, limit):
@@ -178,9 +169,14 @@ def feline_flips(start, goal, limit):
     >>> feline_flips("rose", "hello", big_limit)   # Substitute: r->h, o->e, s->l, e->l, length difference of 1.
     5
     """
-    # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
-    # END PROBLEM 6
+    if limit < 0:
+        return 0
+    elif start == "" or goal == "":
+        return abs(len(start) - len(goal))
+    elif start[0] == goal[0]:
+        return feline_flips(start[1:], goal[1:], limit)
+    else:
+        return feline_flips(start[1:], goal[1:], limit - 1) + 1
 
 
 def minimum_mewtations(start, goal, limit):
@@ -200,25 +196,26 @@ def minimum_mewtations(start, goal, limit):
     >>> minimum_mewtations("ckiteus", "kittens", big_limit) # ckiteus -> kiteus -> kitteus -> kittens
     3
     """
-    assert False, 'Remove this line'
+    if limit < 0:
+        return 0
 
-    if ______________:  # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    elif start != '' and goal == '':
+        return minimum_mewtations(start[1:], goal, limit - 1) + 1
 
-    elif ___________:  # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    elif start == '' and goal != '':
+        return minimum_mewtations(goal[0] + start, goal, limit - 1) + 1
+
+    elif start == '' or goal == '':
+        return 0
+
+    elif start[0] == goal[0]:
+        return minimum_mewtations(start[1:], goal[1:], limit)
 
     else:
-        add = ...  # Fill in these lines
-        remove = ...
-        substitute = ...
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+        add = minimum_mewtations(goal[0] + start, goal, limit - 1) + 1
+        remove = minimum_mewtations(start[1:], goal, limit - 1) + 1
+        substitute = minimum_mewtations(goal[0] + start[1:], goal, limit - 1) + 1
+        return min(add, remove, substitute)
 
 
 def final_diff(start, goal, limit):
@@ -259,8 +256,7 @@ def report_progress(sofar, prompt, user_id, upload):
     0.2
     """
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 8
+    "*** YOUR CODE HERE ***"  # END PROBLEM 8
 
 
 def time_per_word(words, times_per_player):
@@ -281,8 +277,7 @@ def time_per_word(words, times_per_player):
     [[6, 3, 6, 2], [10, 6, 1, 2]]
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 9
+    "*** YOUR CODE HERE ***"  # END PROBLEM 9
 
 
 def fastest_words(match):
@@ -303,8 +298,7 @@ def fastest_words(match):
     player_indices = range(len(get_times(match)))  # contains an *index* for each player
     word_indices = range(len(get_words(match)))  # contains an *index* for each word
     # BEGIN PROBLEM 10
-    "*** YOUR CODE HERE ***"
-    # END PROBLEM 10
+    "*** YOUR CODE HERE ***"  # END PROBLEM 10
 
 
 def match(words, times):
