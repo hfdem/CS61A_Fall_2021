@@ -225,7 +225,14 @@ def sprout_leaves(t, leaves):
           1
           2
     """
-    "*** YOUR CODE HERE ***"
+    for branch in branches(t):
+        if is_leaf(branch):
+            for i in leaves:
+                branch.append(tree(i))
+        else:
+            branch = sprout_leaves(branch, leaves)
+    return t
+
 
 
 # Abstraction tests for sprout_leaves and berry_finder
