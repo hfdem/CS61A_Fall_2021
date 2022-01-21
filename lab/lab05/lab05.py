@@ -10,7 +10,10 @@ def factors_list(n):
     [1, 2, 4, 7, 14]
     """
     all_factors = []
-    "*** YOUR CODE HERE ***"
+    for i in range(1,n):
+        if n % i == 0:
+            all_factors.append(i)
+    return all_factors
 
 
 def flatten(s):
@@ -29,7 +32,20 @@ def flatten(s):
     >>> x
     [[1, [1, 1]], 1, [1, 1]]
     """
-    "*** YOUR CODE HERE ***"
+    rec = []
+    for i in s:
+        if not is_list(i):
+            rec.append(i)
+        else:
+            rec.extend(flatten(i))
+    return rec
+
+
+def is_list(l):
+    if type(l) != list:
+        return False
+    else:
+        return True
 
 
 from math import sqrt
@@ -46,7 +62,7 @@ def distance(city_a, city_b):
     >>> distance(city_c, city_d)
     5.0
     """
-    "*** YOUR CODE HERE ***"
+    return sqrt((get_lat(city_a) - get_lat(city_b)) ** 2 + (get_lon(city_a) - get_lon(city_b)) ** 2)
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -64,8 +80,11 @@ def closer_city(lat, lon, city_a, city_b):
     >>> closer_city(41.29, 174.78, bucharest, vienna)
     'Bucharest'
     """
-    "*** YOUR CODE HERE ***"
-
+    by_city = make_city('by_city', lat, lon)
+    if distance(city_a, by_city) < distance(city_b, by_city):
+        return get_name(city_a)
+    else:
+        return get_name(city_b)
 
 def check_city_abstraction():
     """
@@ -89,6 +108,7 @@ def check_city_abstraction():
     'Bucharest'
     >>> change_abstraction(False)
     """
+
 
 # Treat all the following code as being behind an abstraction layer,
 # you shouldn't need to look at it.
@@ -163,7 +183,13 @@ def berry_finder(t):
     >>> berry_finder(t)
     True
     """
-    "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    if is_tree(t):
+        for branch in branches(t):
+            if berry_finder(branch):
+                return True
+    return False
 
 
 def sprout_leaves(t, leaves):
@@ -200,6 +226,7 @@ def sprout_leaves(t, leaves):
           2
     """
     "*** YOUR CODE HERE ***"
+
 
 # Abstraction tests for sprout_leaves and berry_finder
 
