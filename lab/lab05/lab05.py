@@ -10,7 +10,7 @@ def factors_list(n):
     [1, 2, 4, 7, 14]
     """
     all_factors = []
-    for i in range(1,n):
+    for i in range(1, n):
         if n % i == 0:
             all_factors.append(i)
     return all_factors
@@ -81,10 +81,8 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     by_city = make_city('by_city', lat, lon)
-    if distance(city_a, by_city) < distance(city_b, by_city):
-        return get_name(city_a)
-    else:
-        return get_name(city_b)
+    return get_name(city_a) if distance(city_a, by_city) < distance(city_b, by_city) else get_name(city_b)
+
 
 def check_city_abstraction():
     """
@@ -185,7 +183,7 @@ def berry_finder(t):
     """
     if label(t) == 'berry':
         return True
-    if is_tree(t):
+    elif is_tree(t):
         for branch in branches(t):
             if berry_finder(branch):
                 return True
@@ -225,11 +223,11 @@ def sprout_leaves(t, leaves):
           1
           2
     """
-    for branch in branches(t):
-        if is_leaf(branch):
-            for i in leaves:
-                branch.append(tree(i))
-        else:
+    if is_leaf(t):
+        for i in leaves:
+            t.append(tree(i))
+    else:
+        for branch in branches(t):
             branch = sprout_leaves(branch, leaves)
     return t
 
