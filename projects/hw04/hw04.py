@@ -51,13 +51,13 @@ def end(s):
 def planet(size):
     """Construct a planet of some size."""
     assert size > 0
-    "*** YOUR CODE HERE ***"
+    return ['planet', size]
 
 
 def size(w):
     """Select the size of a planet."""
     assert is_planet(w), 'must call size on a planet'
-    "*** YOUR CODE HERE ***"
+    return w[1]
 
 
 def is_planet(w):
@@ -117,7 +117,25 @@ def balanced(m):
     >>> check(HW_SOURCE_FILE, 'balanced', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return True
+    return total_weight(end(left(m))) * length(left(m)) == total_weight(end(right(m))) * length(right(m)) and balanced(
+        end(left(m))) and balanced(end(right(m)))
+
+
+def torque_arm(a):
+    """
+    >>> torque_arm(arm(1, planet(2)))
+    2
+    >>> t, u, v = examples()
+    >>> torque_arm(arm(1, t))
+    4
+    """
+    assert is_arm(a)
+    if is_planet(end(a)):
+        return length(a) * total_weight(end(a))
+    else:
+        return torque_arm(left(end(a))) + torque_arm(right(end(a)))
 
 
 def totals_tree(m):
@@ -149,7 +167,10 @@ def totals_tree(m):
     >>> check(HW_SOURCE_FILE, 'totals_tree', ['Index'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_planet(m):
+        return tree(size(m))
+    else:
+        return tree(total_weight(m), [totals_tree(end(left(m))), totals_tree(end(right(m)))])
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -181,7 +202,10 @@ def replace_loki_at_leaf(t, lokis_replacement):
     >>> laerad == yggdrasil # Make sure original tree is unmodified
     True
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t) and label(t) == 'loki':
+        return tree(lokis_replacement)
+    else:
+        return tree(label(t), [replace_loki_at_leaf(branch, lokis_replacement) for branch in branches(t)])
 
 
 def has_path(t, word):
@@ -215,7 +239,15 @@ def has_path(t, word):
     False
     """
     assert len(word) > 0, 'no path for empty word.'
-    "*** YOUR CODE HERE ***"
+    if label(t) != word[0]:
+        return False
+    elif len(word) == 1:
+        return True
+    elif is_tree(t):
+        for b in branches(t):
+            if has_path(b, word[1:]):
+                return True
+        return False
 
 
 def preorder(t):
@@ -228,7 +260,12 @@ def preorder(t):
     >>> preorder(tree(2, [tree(4, [tree(6)])]))
     [2, 4, 6]
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t):
+        return [label(t)]
+    rec = [label(t)]
+    for b in branches(t):
+        rec.extend(preorder(b))
+    return rec
 
 
 def str_interval(x):
