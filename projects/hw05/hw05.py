@@ -65,7 +65,7 @@ def path_yielder(t, value):
         yield [value]
     for branch in branches(t):
         for p in path_yielder(branch, value):
-            yield [label(t)] + p
+            yield [t.label] + p
 
 
 def preorder(t):
@@ -78,7 +78,12 @@ def preorder(t):
     >>> preorder(tree(2, [tree(4, [tree(6)])]))
     [2, 4, 6]
     """
-    "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return [t.label]
+    rec = [t.label]
+    for branch in branches(t):
+        rec.extend(preorder(branch))
+    return rec
 
 
 def generate_preorder(t):
@@ -92,7 +97,9 @@ def generate_preorder(t):
     >>> list(gen)
     [2, 3, 4, 5, 6, 7]
     """
-    "*** YOUR CODE HERE ***"
+    yield t.label
+    for branch in branches(t):
+        yield from generate_preorder(branch)
 
 
 def remainders_generator(m):
