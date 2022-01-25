@@ -133,7 +133,18 @@ def remainders_generator(m):
     7
     11
     """
-    "*** YOUR CODE HERE ***"
+    def gen():
+        n = m
+        while True:
+            yield n - m + t
+            n += m
+
+    t = m
+    yield gen()
+    t = 1
+    while t < m:
+        yield gen()
+        t += 1
 
 
 class Tree:
