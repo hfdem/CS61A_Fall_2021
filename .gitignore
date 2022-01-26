@@ -2,4 +2,6 @@
 /projects/**/__pycache__/
 /lab/**/.ok*
 /lab/**/__pycache__/
+/homeworks/**/.ok*
+/homeworks/**/__pycache__/
 /.idea/
