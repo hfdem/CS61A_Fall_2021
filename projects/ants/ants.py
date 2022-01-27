@@ -305,10 +305,30 @@ class WallAnt(Ant):
 
     def __init__(self, health=4):
         super().__init__(health)
+
+
 # END Problem 6
 
 # BEGIN Problem 7
-# The HungryAnt Class
+class HungryAnt(Ant):
+    # The HungryAnt Class
+
+    name = 'Hungry'
+    food_cost = 4
+    chew_duration = 3
+    implemented = True
+
+    def __init__(self, health=1):
+        self.chew_countdown = 0
+        super().__init__(health)
+
+    def action(self, gamestate):
+        if self.chew_countdown:
+            self.chew_countdown -= 1
+        elif self.place.bees:
+            self.chew_countdown = self.chew_duration
+            hapless_bee = random_bee(self.place.bees)
+            hapless_bee.reduce_health(hapless_bee.health)
 # END Problem 7
 
 
