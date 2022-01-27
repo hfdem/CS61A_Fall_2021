@@ -182,6 +182,8 @@ class ThrowerAnt(Ant):
     implemented = True
     damage = 1
     food_cost = 3
+    min_range = 0
+    max_range = float('inf')
 
     # ADD/OVERRIDE CLASS ATTRIBUTES HERE
 
@@ -192,11 +194,11 @@ class ThrowerAnt(Ant):
         This method returns None if there is no such Bee (or none in range).
         """
         # BEGIN Problem 3 and 4
-        discover_place = self.place
+        discover_place, position = self.place, 0
         while not discover_place.is_hive:
-            if discover_place.bees:
+            if self.min_range <= position <= self.max_range and discover_place.bees:
                 return random_bee(discover_place.bees)
-            discover_place = discover_place.entrance
+            discover_place, position = discover_place.entrance, position + 1
         # END Problem 3 and 4
 
     def throw_at(self, target):
@@ -226,9 +228,11 @@ class ShortThrower(ThrowerAnt):
 
     name = 'Short'
     food_cost = 2
+    min_range = 0
+    max_range = 3
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem 4
 
 
@@ -237,9 +241,11 @@ class LongThrower(ThrowerAnt):
 
     name = 'Long'
     food_cost = 2
+    min_range = 5
+    max_range = float('inf')
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 4
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
     # END Problem 4
 
 
