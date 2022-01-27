@@ -334,6 +334,8 @@ class HungryAnt(Ant):
             self.chew_countdown = self.chew_duration
             hapless_bee = random_bee(self.place.bees)
             hapless_bee.reduce_health(hapless_bee.health)
+
+
 # END Problem 7
 
 
@@ -397,7 +399,7 @@ class BodyguardAnt(ContainerAnt):
 
 # BEGIN Problem 9
 class TankAnt(ContainerAnt):
-# The TankAnt class
+    # The TankAnt class
     name = 'Tank'
     damage = 1
     food_cost = 6
@@ -411,6 +413,8 @@ class TankAnt(ContainerAnt):
         for bees in all_bees:
             bees.reduce_health(self.damage)
         return ContainerAnt.action(self, gamestate)
+
+
 # END Problem 9
 
 
@@ -430,9 +434,18 @@ class Water(Place):
 
 
 # BEGIN Problem 11
-# The ScubaThrower class
-# END Problem 11
+class ScubaThrower(ThrowerAnt):
+    # The ScubaThrower class
 
+    name = 'Scuba'
+    food_cost = 6
+    is_waterproof = True
+
+    def __init__(self, health=1):
+        super().__init__(health)
+
+
+# END Problem 11
 # BEGIN Problem 12
 
 
