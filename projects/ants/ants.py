@@ -109,6 +109,7 @@ class Ant(Insect):
     food_cost = 0
     is_container = False
     is_buffed = False
+    blocks_path = True
 
     # ADD CLASS ATTRIBUTES HERE
 
@@ -281,12 +282,10 @@ class FireAnt(Ant):
         the additional damage if the fire ant dies.
         """
         # BEGIN Problem 5
-        all_bees = self.place.bees[:]
-        for bees in all_bees:
+        for bees in self.place.bees[:]:
             reflect_damage(bees, amount)
         if self.health - amount <= 0:
-            all_bees = self.place.bees[:]
-            for bees in all_bees:
+            for bees in self.place.bees[:]:
                 self.extra_damage(bees)
         return Ant.reduce_health(self, amount)
         # END Problem 5
@@ -541,7 +540,7 @@ class Bee(Insect):
         """Return True if this Bee cannot advance to the next Place."""
         # Special handling for NinjaAnt
         # BEGIN Problem Optional 1
-        return self.place.ant is not None
+        return self.place.ant is not None and self.place.ant.blocks_path
         # END Problem Optional 1
 
     def action(self, gamestate):
@@ -606,13 +605,16 @@ class NinjaAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem Optional 1
-    implemented = False  # Change to True to view in the GUI
-
+    implemented = True  # Change to True to view in the GUI
+    blocks_path = False
     # END Problem Optional 1
 
     def action(self, gamestate):
         # BEGIN Problem Optional 1
-        "*** YOUR CODE HERE ***"
+        for bee in self.place.bees[:]:
+            if bee is not None:
+                bee.reduce_health(self.damage)
+        return super().action(gamestate)
         # END Problem Optional 1
 
 
