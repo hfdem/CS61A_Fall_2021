@@ -108,6 +108,7 @@ class Ant(Insect):
     implemented = False  # Only implemented Ant classes should be instantiated
     food_cost = 0
     is_container = False
+    is_buffed = False
 
     # ADD CLASS ATTRIBUTES HERE
 
@@ -157,7 +158,9 @@ class Ant(Insect):
     def buff(self):
         """Double this ants's damage, if it has not already been buffed."""
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        if not self.is_buffed:
+            self.is_buffed = True
+            self.damage = 2 * self.damage
         # END Problem 12
 
 
@@ -449,7 +452,7 @@ class ScubaThrower(ThrowerAnt):
 # BEGIN Problem 12
 
 
-class QueenAnt(Ant):  # You should change this line
+class QueenAnt(ScubaThrower):  # You should change this line
     # END Problem 12
     """The Queen of the colony. The game is over if a bee enters her place."""
 
@@ -457,8 +460,8 @@ class QueenAnt(Ant):  # You should change this line
     food_cost = 7
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 12
-    implemented = False  # Change to True to view in the GUI
-
+    one_true_queen = True
+    implemented = True  # Change to True to view in the GUI
     # END Problem 12
 
     @classmethod
@@ -468,7 +471,9 @@ class QueenAnt(Ant):  # You should change this line
         returns None otherwise. Remember to call the construct() method of the superclass!
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        if cls.one_true_queen:
+            cls.one_true_queen = False
+            return super().construct(gamestate)
         # END Problem 12
 
     def action(self, gamestate):
@@ -476,16 +481,28 @@ class QueenAnt(Ant):  # You should change this line
         in her tunnel.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
-        # END Problem 12
+        buff_place = self.place.exit
+        while buff_place is not None:
+            if buff_place.ant:
+                buff_place.ant.buff()
+                if buff_place.ant.is_container and buff_place.ant.ant_contained:
+                    buff_place.ant.ant_contained.buff()
+            buff_place = buff_place.exit
+        return super().action(gamestate)
+    # END Problem 12
 
     def reduce_health(self, amount):
         """Reduce health by AMOUNT, and if the QueenAnt has no health
         remaining, signal the end of the game.
         """
         # BEGIN Problem 12
-        "*** YOUR CODE HERE ***"
+        self.health -= amount
+        if self.health <= 0:
+            return ants_lose()
         # END Problem 12
+
+    def remove_from(self, place):
+        return
 
 
 class AntRemover(Ant):
