@@ -462,6 +462,7 @@ class QueenAnt(ScubaThrower):  # You should change this line
     # BEGIN Problem 12
     one_true_queen = True
     implemented = True  # Change to True to view in the GUI
+
     # END Problem 12
 
     @classmethod
@@ -489,6 +490,7 @@ class QueenAnt(ScubaThrower):  # You should change this line
                     buff_place.ant.ant_contained.buff()
             buff_place = buff_place.exit
         return super().action(gamestate)
+
     # END Problem 12
 
     def reduce_health(self, amount):
@@ -521,9 +523,11 @@ class Bee(Insect):
     name = 'Bee'
     damage = 1
     is_waterproof = True
+    scared = False
+    slowed_length = 0
+    scared_length = 0
 
     # OVERRIDE CLASS ATTRIBUTES HERE
-
     def sting(self, ant):
         """Attack an ANT, reducing its health by 1."""
         ant.reduce_health(self.damage)
@@ -547,8 +551,17 @@ class Bee(Insect):
         gamestate -- The GameState, used to access game state information.
         """
         destination = self.place.exit
-
         # Extra credit: Special handling for bee direction
+        if self.slowed_length:
+            self.slowed_length -= 1
+            if gamestate.time % 2:
+                # odd turn
+                destination = self.place
+        if self.scared_length and gamestate.time % 2 == 0:
+            # even turn
+            self.scared_length -= 1
+            if not self.place.entrance.is_hive:
+                destination = self.place.entrance
         if self.blocked():
             self.sting(self.place.ant)
         elif self.health > 0 and destination is not None:
@@ -565,7 +578,7 @@ class Bee(Insect):
     def slow(self, length):
         """Slow the bee for a further LENGTH turns."""
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        self.slowed_length += length
         # END Problem EC
 
     def scare(self, length):
@@ -574,7 +587,8 @@ class Bee(Insect):
         go backwards LENGTH times.
         """
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        if not self.scared:
+            self.scared_length, self.scared = length, True
         # END Problem EC
 
 
@@ -613,7 +627,7 @@ class SlowThrower(ThrowerAnt):
     name = 'Slow'
     food_cost = 4
     # BEGIN Problem EC
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
 
     # END Problem EC
 
@@ -628,13 +642,14 @@ class ScaryThrower(ThrowerAnt):
     name = 'Scary'
     food_cost = 6
     # BEGIN Problem EC
-    implemented = False  # Change to True to view in the GUI
+    implemented = True  # Change to True to view in the GUI
 
     # END Problem EC
 
     def throw_at(self, target):
         # BEGIN Problem EC
-        "*** YOUR CODE HERE ***"
+        if target:
+            target.scare(2)
         # END Problem EC
 
 
