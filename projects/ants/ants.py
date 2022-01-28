@@ -607,6 +607,7 @@ class NinjaAnt(Ant):
     # BEGIN Problem Optional 1
     implemented = True  # Change to True to view in the GUI
     blocks_path = False
+
     # END Problem Optional 1
 
     def action(self, gamestate):
