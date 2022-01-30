@@ -143,7 +143,20 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     >>> link1 = Link(3, Link(Link(4), Link(5, Link(6))))
     """
-    "*** YOUR CODE HERE ***"
+    if not isinstance(n, list):
+        n = splice(n)
+    if len(n) == 1:
+        return Link(n[0])
+    else:
+        return Link(n[0], store_digits(n[1:]))
+
+
+def splice(n):
+    l = []
+    while n:
+        l.insert(0, n % 10)
+        n = n // 10
+    return l
 
 
 def deep_map_mut(fn, link):
