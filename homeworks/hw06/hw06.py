@@ -98,15 +98,16 @@ class Mint:
     125
     """
     present_year = 2021
+    year = present_year
 
     def __init__(self):
         self.update()
 
     def create(self, kind):
-        "*** YOUR CODE HERE ***"
+        return kind(self.year)
 
     def update(self):
-        "*** YOUR CODE HERE ***"
+        self.year = Mint.present_year
 
 
 class Coin:
@@ -114,7 +115,8 @@ class Coin:
         self.year = year
 
     def worth(self):
-        "*** YOUR CODE HERE ***"
+        assert self.cents is not None
+        return max(self.cents + Mint.present_year - self.year -50, self.cents)
 
 
 class Nickel(Coin):
