@@ -35,7 +35,37 @@ class VendingMachine:
     >>> w.vend()
     'Here is your soda.'
     """
-    "*** YOUR CODE HERE ***"
+    stock = 0
+    balance = 0
+
+    def __init__(self, name, cost):
+        self.name = name
+        self.cost = cost
+
+    def restock(self, add_stock):
+        self.stock += add_stock
+        return 'Current {0} stock: {1}'.format(self.name, self.stock)
+
+    def add_funds(self, money):
+        if self.stock == 0:
+            return 'Nothing left to vend. Please restock. Here is your ${0}.'.format(money)
+        self.balance += money
+        return 'Current balance: ${0}'.format(self.balance)
+
+    def vend(self):
+        if self.stock == 0:
+            return 'Nothing left to vend. Please restock.'
+        elif self.balance < self.cost:
+            return 'You must add ${0} more funds.'.format(self.cost - self.balance)
+        elif self.balance == self.cost:
+            self.balance -= self.cost
+            self.stock -= 1
+            return 'Here is your {0}.'.format(self.name)
+        else:
+            change = self.balance - self.cost
+            self.balance = 0
+            self.stock -= 1
+            return 'Here is your {0} and ${1} change.'.format(self.name, change)
 
 
 class Mint:
