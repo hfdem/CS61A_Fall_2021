@@ -276,7 +276,28 @@ def is_bst(t):
     >>> is_bst(t7)
     False
     """
-    "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return True
+    if len(t.branches) > 2:
+        return False
+    if len(t.branches) == 1:
+        return is_bst(t.branches[0])
+    else:
+        left_child = t.branches[0]
+        right_child = t.branches[1]
+        return is_bst(left_child) and is_bst(right_child) and max_bst(left_child) <= t.label <= min_bst(right_child)
+
+
+def min_bst(t):
+    if t.is_leaf():
+        return t.label
+    return min(t.label, min(min_bst(branch) for branch in t.branches))
+
+
+def max_bst(t):
+    if t.is_leaf():
+        return t.label
+    return max(t.label, max(max_bst(branch) for branch in t.branches))
 
 
 class Link:
