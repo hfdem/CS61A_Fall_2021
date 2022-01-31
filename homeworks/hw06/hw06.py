@@ -205,7 +205,13 @@ def two_list(vals, amounts):
     >>> c
     Link(1, Link(1, Link(3, Link(3, Link(2)))))
     """
-    "*** YOUR CODE HERE ***"
+    if len(amounts) == 0:
+        return Link.empty
+    elif amounts[0] == 0:
+        return two_list(vals[1:], amounts[1:])
+    else:
+        amounts[0] -= 1
+        return Link(vals[0], two_list(vals, amounts))
 
 
 class VirFib():
