@@ -240,7 +240,12 @@ class VirFib():
         self.value = value
 
     def next(self):
-        "*** YOUR CODE HERE ***"
+        if self.value == 0:
+            result = VirFib(1)
+        else:
+            result = VirFib(self.value + self.previous)
+        result.previous = self.value
+        return result
 
     def __repr__(self):
         return "VirFib object, value " + str(self.value)
