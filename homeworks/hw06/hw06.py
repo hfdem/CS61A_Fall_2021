@@ -116,7 +116,7 @@ class Coin:
 
     def worth(self):
         assert self.cents is not None
-        return max(self.cents + Mint.present_year - self.year -50, self.cents)
+        return max(self.cents + Mint.present_year - self.year - 50, self.cents)
 
 
 class Nickel(Coin):
@@ -375,4 +375,5 @@ class Tree:
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()
