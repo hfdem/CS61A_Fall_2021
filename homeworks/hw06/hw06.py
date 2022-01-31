@@ -176,7 +176,14 @@ def deep_map_mut(fn, link):
     >>> print(link1)
     <9 <16> 25 36>
     """
-    "*** YOUR CODE HERE ***"
+    if link.rest is Link.empty:
+        link.first = fn(link.first)
+    elif isinstance(link.first, Link):
+        deep_map_mut(fn, link.first)
+        deep_map_mut(fn, link.rest)
+    else:
+        link.first = fn(link.first)
+        deep_map_mut(fn, link.rest)
 
 
 def two_list(vals, amounts):
