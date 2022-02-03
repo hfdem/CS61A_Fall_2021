@@ -23,8 +23,7 @@ def subseqs(s):
     if not s:
         return [[]]
     else:
-        subs = subseqs(s[1:])
-        return insert_into_all(s[0], subs) + subs
+        return insert_into_all(s[0], subseqs(s[1:])) + subseqs(s[1:])
 
 
 def non_decrease_subseqs(s):
@@ -43,14 +42,14 @@ def non_decrease_subseqs(s):
     """
     def subseq_helper(s, prev):
         if not s:
-            return ____________________
+            return [[]]
         elif s[0] < prev:
-            return ____________________
+            return subseq_helper(s[1:], prev)
         else:
-            a = ______________________
-            b = ______________________
-            return insert_into_all(________, ______________) + ________________
-    return subseq_helper(____, ____)
+            a = subseq_helper(s[1:], s[0])
+            b = subseq_helper(s[1:], prev)
+            return insert_into_all(s[0], a) + b
+    return subseq_helper(s, 0)
 
 
 def num_trees(n):
@@ -73,7 +72,9 @@ def num_trees(n):
     429
 
     """
-    "*** YOUR CODE HERE ***"
+    if n == 1:
+        return 1
+    return sum(num_trees(k) * num_trees(n-k) for k in range(1,n))
 
 
 def merge(incr_a, incr_b):
@@ -95,7 +96,22 @@ def merge(incr_a, incr_b):
     """
     iter_a, iter_b = iter(incr_a), iter(incr_b)
     next_a, next_b = next(iter_a, None), next(iter_b, None)
-    "*** YOUR CODE HERE ***"
+    while next_a is not None or next_b is not None:
+        if next_a is None:
+            yield next_b
+            next_b = next(iter_b, None)
+        elif next_b is None:
+            yield next_a
+            next_a = next(iter_a, None)
+        elif next_a < next_b:
+            yield next_a
+            next_a = next(iter_a, None)
+        elif next_b < next_a:
+            yield next_b
+            next_b = next(iter_b, None)
+        else:   # next_a == next_b
+            yield next_a
+            next_a, next_b = next(iter_a, None), next(iter_b, None)
 
 
 class Account:
@@ -125,25 +141,34 @@ class Account:
     def __init__(self, account_holder):
         self.balance = 0
         self.holder = account_holder
-        "*** YOUR CODE HERE ***"
+        self.transactions = []
 
     def deposit(self, amount):
         """Increase the account balance by amount, add the deposit
         to the transaction history, and return the new balance.
         """
-        "*** YOUR CODE HERE ***"
+        self.balance += amount
+        self.transactions.append(('deposit', amount))
+        return self.balance
 
     def withdraw(self, amount):
         """Decrease the account balance by amount, add the withdraw
         to the transaction history, and return the new balance.
         """
-        "*** YOUR CODE HERE ***"
+        if amount > self.balance:
+            return "Balance is not enough"
+        else:
+            self.balance -= amount
+            self.transactions.append(('withdraw', amount))
+        return self.balance
 
     def __str__(self):
-        "*** YOUR CODE HERE ***"
+        return F"{self.holder}'s Balance: ${self.balance}"
 
     def __repr__(self):
-        "*** YOUR CODE HERE ***"
+        deposits_num = len([d for d in self.transactions if 'deposit' in d])
+        withdraws_num = len([w for w in self.transactions if 'withdraw' in w])
+        return F"Accountholder: {self.holder}, Deposits: {deposits_num}, Withdraws: {withdraws_num}"
 
 
 def trade(first, second):
