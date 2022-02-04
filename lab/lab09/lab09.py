@@ -276,7 +276,12 @@ def insert(link, value, index):
         ...
     IndexError: Out of bounds!
     """
-    "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        raise IndexError('Out of bounds!')
+    elif index == 0:
+        link.first, link.rest = value, Link(link.first, link.rest)
+    else:
+        insert(link.rest, value, index-1)
 
 
 def deep_len(lnk):
