@@ -379,7 +379,13 @@ def long_paths(t, n):
     >>> long_paths(whole, 4)
     [[0, 11, 12, 13, 14]]
     """
-    "*** YOUR CODE HERE ***"
+    if n <= 0 and t.is_leaf():
+        return [[t.label]]
+    path = []
+    for branch in t.branches:
+        for p in long_paths(branch, n-1):
+            path.append([t.label] + p)
+    return path
 
 
 class Link:
