@@ -16,6 +16,14 @@
         (f (g x)))
 )
 
-(define lst 'YOUR-CODE-HERE)
+(define lst
+    ;(list (list 1) 2 (list 3 4) 5)
+    ;'((1) 2 (3 4) 5)
+    (cons (cons 1 nil)
+        (cons 2
+            (cons (cons 3
+                    (cons 4 nil))
+                (cons 5 nil))))
+)
 
 (define (remove item lst) 'YOUR-CODE-HERE)
