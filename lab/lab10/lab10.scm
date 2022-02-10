@@ -26,4 +26,10 @@
                 (cons 5 nil))))
 )
 
-(define (remove item lst) 'YOUR-CODE-HERE)
+(define (remove item lst)
+    ;(filter (lambda (i) (not (= i item))) lst)
+    (cond ((null? lst) '())
+        ((= item (car lst)) (remove item (cdr lst)))
+        (else (cons (car lst) (remove item (cdr lst))))
+    )
+)
