@@ -4,7 +4,11 @@
 
 (define (caddr s) (car (cdr (cdr s))))
 
-(define (ordered? s) 'YOUR-CODE-HERE)
+(define (ordered? s)
+    (cond ((null? s) #t)
+        ((= (length s) 1) #t)
+        ((< (cadr s) (car s)) #f)
+        (else (ordered? (cdr s)))))
 
 (define (square x) (* x x))
 
