@@ -9,6 +9,7 @@
     (else (append (list (car s1)) (list (car s2)) (interleave (cdr s1) (cdr s2))))))
 
 (define (accumulate merger start n term)
-  'YOUR-CODE-HERE)
+  (if (= n 0) start
+    (accumulate merger (merger start (term n)) (- n 1) term)))
 
 (define (no-repeats lst) 'YOUR-CODE-HERE)
