@@ -12,4 +12,6 @@
   (if (= n 0) start
     (accumulate merger (merger start (term n)) (- n 1) term)))
 
-(define (no-repeats lst) 'YOUR-CODE-HERE)
+(define (no-repeats lst)
+  (if (null? lst) lst
+    (append (list (car lst)) (no-repeats (my-filter (lambda (x) (not (= x (car lst)))) lst)))))
