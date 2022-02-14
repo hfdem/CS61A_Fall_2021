@@ -58,6 +58,18 @@ class Pair:
         else:
             raise TypeError('ill-formed list (cdr is a promise)')
 
+    def convert_list(self):
+        args_list = []
+
+        def helper(args):
+            if args is nil:
+                return args_list
+            else:
+                args_list.append(args.first)
+                helper(args.rest)
+                return args_list
+        return helper(self)
+
 
 class nil:
     """The empty list"""
@@ -76,6 +88,10 @@ class nil:
 
     def flatmap(self, fn):
         return self
+
+    @staticmethod
+    def convert_list():
+        return []
 
 
 nil = nil()  # Assignment hides the nil class; there is only one instance
