@@ -19,7 +19,7 @@ def roman_numerals(text):
     >>> roman_numerals("she loves ALL editors equally.")
     []
     """
-    return re.findall(__________, text)
+    return re.findall(r'\b[IVXLCDM]+\b', text)
 
 
 import re
