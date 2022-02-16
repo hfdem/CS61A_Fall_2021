@@ -7,8 +7,10 @@
 ;; Returns a list of two-element lists
 (define (enumerate s)
   ; BEGIN PROBLEM 15
-  'replace-this-line
-  )
+  (define (add_index n s)
+    (if (null? (cdr s)) (list (list n (car s)))
+      (append (list (list n (car s))) (add_index (+ n 1) (cdr s)))))
+  (if (null? s) '() (add_index 0 s)))
   ; END PROBLEM 15
 
 ;; Problem 16
