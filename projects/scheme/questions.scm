@@ -19,8 +19,11 @@
 ;; the merged lists.
 (define (merge inorder? list1 list2)
   ; BEGIN PROBLEM 16
-  'replace-this-line
-  )
+  (cond ((and (null? list1) (null? list2)) nil)
+    ((null? list1) (append (list (car list2)) (merge inorder? list1 (cdr list2))))
+    ((null? list2) (append (list (car list1)) (merge inorder? (cdr list1) list2)))
+    ((inorder? (car list1) (car list2)) (append (list (car list1)) (merge inorder? (cdr list1) list2)))
+    (else (append (list (car list2)) (merge inorder? list1 (cdr list2))))))
   ; END PROBLEM 16
 
 
