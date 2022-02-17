@@ -10,13 +10,12 @@
 
 
     
-    tree_node: "null"
+    tree_node: "Tree(" label ("," "[" branches "]")? ")"
     
     
-    ?label: "null"
+    ?label: NUMBER+
     
-    branches: "null"
+    branches: (tree_node ","?)+
     
     %ignore /\s+/
     %import common.NUMBER
-
