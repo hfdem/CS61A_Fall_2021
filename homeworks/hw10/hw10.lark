@@ -2,7 +2,10 @@ rstring: "r\"" regex* "\""
 
 group: "(" regex ")"
 pipe: regex "|" regex
-?regex: character | word | group | pipe
+?regex: character | word | group | pipe | class
+
+range: NUMBER "-" NUMBER | LETTER "-" LETTER
+class: "[" (character* | range*)+ "]"
 
 character: LETTER | NUMBER
 word: WORD
