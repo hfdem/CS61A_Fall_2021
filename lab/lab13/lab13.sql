@@ -38,7 +38,11 @@ AND first.song = second.song;
 
 
 CREATE TABLE sevens AS
-  SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
+SELECT  stu.seven
+FROM students AS stu, numbers AS num
+WHERE stu.time = num.time
+AND stu.number = 7
+AND num."7" = "True";
 
 
 CREATE TABLE avg_difference AS
