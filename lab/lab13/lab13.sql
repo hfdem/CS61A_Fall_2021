@@ -46,5 +46,5 @@ AND num."7" = "True";
 
 
 CREATE TABLE avg_difference AS
-  SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
-
+SELECT  round(avg(abs(number - smallest)))
+FROM students;
