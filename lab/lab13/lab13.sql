@@ -27,7 +27,14 @@ HAVING COUNT(*) = 1;
 
 
 CREATE TABLE matchmaker AS
-  SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
+SELECT  first.pet
+       ,first.song
+       ,first.color
+       ,second.color
+FROM students AS first , students AS second
+WHERE first.time < second.time
+AND first.pet = second.pet
+AND first.song = second.song;
 
 
 CREATE TABLE sevens AS
