@@ -35,7 +35,10 @@ AND a.height > b.min;
 
 -- All dogs with parents ordered by decreasing height of their parent
 CREATE TABLE by_parent_height AS
-  SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
+SELECT  b.child
+FROM dogs AS a, parents AS b
+WHERE a.name = b.parent
+ORDER BY a.height DESC;
 
 
 -- Filling out this helper table is optional
