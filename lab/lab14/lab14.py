@@ -297,10 +297,10 @@ def match_url(text):
     >>> match_url("htp://domain.org")
     False
     """
-    scheme = r'___'
-    domain = r'___'
-    path = r'___'
-    anchor = r'___'
+    scheme = r'(?:http|https)://'
+    domain = r'[\w\d\.-]+'
+    path = r'(?:/[\w\d-]+)+(?:\.[\w\d-]+)?'
+    anchor = r'/#[\w\d-]+'
     return bool(re.match(rf"^(?:{scheme})?{domain}(?:{path})?(?:{anchor})?$", text))
 
 
