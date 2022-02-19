@@ -8,4 +8,7 @@
     (if (< n (length lst)) (append (list(split-car lst n)) (split-cdr lst n))
         (list lst)))
 
-(define (compose-all funcs) 'YOUR-CODE-HERE)
+(define (compose-all funcs)
+    (if (null? funcs) (lambda (x) x)
+        (lambda (x) ((compose-all (cdr funcs)) ((car funcs) x)))))
+        
