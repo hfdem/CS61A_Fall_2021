@@ -108,10 +108,23 @@ class Player:
         self.popularity = 100
 
     def debate(self, other):
-        "*** YOUR CODE HERE ***"
+        if random() < max(0.1, self.popularity / (self.popularity + other.popularity)):
+            self.popularity += 50
+        else:
+            self.popularity -= 50
+        self.check_popularity(other)
 
     def speech(self, other):
-        "*** YOUR CODE HERE ***"
+        gain = self.popularity // 10
+        self.votes += gain
+        self.popularity += gain
+        other.popularity -= other.popularity // 10
+        self.check_popularity(other)
+
+    def check_popularity(self, other):
+        # players' popularity should be at least 0
+        self.popularity = max(0, self.popularity)
+        other.popularity = max(0, other.popularity)
 
     def choose(self, other):
         return self.speech
