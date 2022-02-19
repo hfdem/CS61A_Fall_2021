@@ -236,7 +236,20 @@ def add_trees(t1, t2):
         5
       5
     """
-    "*** YOUR CODE HERE ***"
+    if t1.is_leaf() and t2.is_leaf():
+        return Tree(t1.label + t2.label)
+    if t1.is_leaf():
+        return Tree(t1.label + t2.label, t2.branches)
+    if t2.is_leaf():
+        return Tree(t1.label + t2.label, t1.branches)
+    new_branches = []
+    for branch1, branch2 in list(zip(t1.branches, t2.branches)):
+        new_branches.append(add_trees(branch1, branch2))
+    if len(t1.branches) < len(t2.branches):
+        new_branches += t2.branches[len(t1.branches):]
+    if len(t1.branches) > len(t2.branches):
+        new_branches += t1.branches[len(t2.branches):]
+    return Tree(t1.label + t2.label, new_branches)
 
 
 def foldl(link, fn, z):
