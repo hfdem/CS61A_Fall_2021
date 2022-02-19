@@ -177,7 +177,9 @@ class AggressivePlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity > other.popularity:
+            return self.speech
+        return self.debate
 
 
 class CautiousPlayer(Player):
@@ -194,7 +196,9 @@ class CautiousPlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity == 0:
+            return self.debate
+        return self.speech
 
 
 def add_trees(t1, t2):
