@@ -277,7 +277,9 @@ def foldr(link, fn, z):
     >>> foldr(lst, mul, 1) # (3 * (2 * (1 * 1)))
     6
     """
-    "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        return z
+    return fn(link.first, foldr(link.rest, fn, z))
 
 
 def match_url(text):
