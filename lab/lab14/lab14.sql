@@ -22,6 +22,12 @@ ORDER BY name DESC;
 
 
 -- Two meals at the same place
-create table double as
-SELECT "REPLACE THIS LINE WITH YOUR SOLUTION";
+CREATE TABLE double AS
+SELECT  first.meal
+       ,second.meal
+       ,pizza.name
+FROM meals AS first, meals AS second, pizzas AS pizza
+WHERE second.time - first.time > 6
+AND pizza.open <= first.time
+AND pizza.close >= second.time;
 
