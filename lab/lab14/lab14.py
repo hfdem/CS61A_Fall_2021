@@ -148,7 +148,9 @@ class Game:
 
     def play(self):
         while not self.game_over:
-            "*** YOUR CODE HERE ***"
+            self.p1.choose(self.p2)(self.p2)
+            self.p2.choose(self.p1)(self.p1)
+            self.turn += 1
         return self.winner
 
     @property
@@ -157,7 +159,9 @@ class Game:
 
     @property
     def winner(self):
-        "*** YOUR CODE HERE ***"
+        if self.p1.votes == self.p2.votes:
+            return None
+        return max(self.p1, self.p2, key=lambda x: x.votes)
 
 
 # Phase 3: New Players
